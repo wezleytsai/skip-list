@@ -9,48 +9,54 @@
   <div class="steps"></div>
   <h2>Skip List:</h2>
   <div class="graph"></div>
+
   <script>
     $(document).ready(function() {
       var s = new Skiplist();
-      var insertions = [1, 2, 3, 5, 4, 6, 7, 9, 12];
+
+      var print = function(string) {
+        var lines = s.report();
+        var baseline = lines[lines.length - 1];
+
+        for( var i = lines.length - 1; i >= 0; i-- ) {
+          var line = lines[i];
+          var html = '<div>';
+
+          var spacesAdded = 0;
+          for( var j = 0; j < line.length; j++ ) {
+            var spaces = baseline.indexOf(line[j]) - j - spacesAdded;
+            while( spaces ) {
+              html += '- - - ';
+              spaces--;
+              spacesAdded++;
+            }
+
+            if( line[j] === -Infinity ) {
+              html += '[-&infin;]';
+            } else {
+              html += '['+line[j]+']';
+            }
+
+            // if not the last element, add an arrow
+            if( j !== line.length - 1 ) {
+              html += ' - ';
+            }
+          }
+
+          html += '</div>';
+
+          $('.graph').prepend(html);
+        }
+      };
+
+      var insertions = [1, 2, 3, 5, 4, 7, 6, 9, 12];
 
       insertions.forEach(function(value) {
         $('.steps').append('<p>insert '+value+'</p>');
         s.insert(value);
       });
 
-      var lines = s.report();
-      var baseline = lines[lines.length - 1];
-
-      for( var i = lines.length - 1; i >= 0; i-- ) {
-        var line = lines[i];
-        var html = '<div>';
-
-        var spacesAdded = 0;
-        for( var j = 0; j < line.length; j++ ) {
-          var spaces = baseline.indexOf(line[j]) - j - spacesAdded;
-          while( spaces ) {
-            html += '- - - ';
-            spaces--;
-            spacesAdded++;
-          }
-
-          if( line[j] === -Infinity ) {
-            html += '[-&infin;]';
-          } else {
-            html += '['+line[j]+']';
-          }
-
-          // if not the last element, add an arrow
-          if( j !== line.length - 1 ) {
-            html += ' - ';
-          }
-        }
-
-        html += '</div>';
-
-        $('.graph').prepend(html);
-      }
+      print();
     });
   </script>
 </body>

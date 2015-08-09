@@ -99,7 +99,7 @@ Skiplist.prototype.remove = function(value) {
 };
 
 Skiplist.prototype.report = function() {
-  // reports nodes in skip list in 2D array
+  // reports nodes in skip list as a 2D array
   var nodes = [];
   var level = 0;
   var head = this.head;
@@ -149,28 +149,3 @@ Node.prototype.remove = function() {
 var coinFlip = function() {
   return Math.random() < 0.5;
 };
-
-
-// tests
-// var s = new Skiplist();
-// s.insert(3);
-// s.insert(5);
-// s.insert(4);
-// s.insert(6);
-// console.log(s.search(3));
-// console.log(s.search(4));
-// console.log(s.search(5));
-// console.log(s.search(6));
-
-// console.log(s.report());
-
-// console.log(s.remove(3));
-// console.log(s.report());
-
-// console.log(s.remove(4));
-// console.log(s.remove(5));
-// console.log(s.report());
-
-// console.log(s.search(3));
-// console.log(s.search(4));
-// console.log(s.search(5));
